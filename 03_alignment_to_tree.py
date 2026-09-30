@@ -1,3 +1,13 @@
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#     "marimo>=0.24.2",
+#     "matplotlib",
+#     "numpy",
+#     "scipy",
+# ]
+# ///
+
 import marimo
 
 __generated_with = "0.24.2"
@@ -6,14 +16,53 @@ app = marimo.App(width="medium")
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""
-    # 3. From alignment to tree
+    mo.Html(r"""
+    <style>
+    .lab-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;font:600 13px 'Trebuchet MS',sans-serif}
+    .lab-nav a{padding:10px 15px;border:1px solid #c7d7d1;border-radius:24px;color:#16483e;text-decoration:none;background:#f4f8f5}
+    .lab-nav a[aria-current=page]{background:#143b33;color:#e2f7a7;border-color:#143b33}
+    .lab-nav a:hover{background:#dceebd;color:#163b33}
+    .lab-nav a:focus-visible{outline:3px solid #008b9d;outline-offset:3px}
+    .lab-hero{position:relative;overflow:hidden;padding:32px 38px;border-radius:24px;background:#123b33;color:#f6f9ee;margin-bottom:20px}
+    .lab-hero h1{font:normal clamp(30px,4vw,52px)/1.06 Georgia,serif;margin:16px 0;color:#f6f9ee!important;max-width:76%}
+    .lab-hero p{font:17px/1.6 'Trebuchet MS',sans-serif;max-width:78%;margin:0;color:#d4e7dc}
+    .lab-eyebrow{font:700 11px 'Trebuchet MS',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#ddf59d}
+    .lab-orbit{position:absolute;width:160px;height:160px;right:-15px;top:35px;border:1px solid #517567;border-radius:50%}
+    .lab-orbit:before,.lab-orbit:after{content:"";position:absolute;border:1px solid #517567;border-radius:50%;inset:22px}
+    .lab-orbit:after{inset:46px;background:#dff48d}
+    .lab-meta{font:12px 'Trebuchet MS',sans-serif;color:#587267;margin:12px 2px}
+    .lab-metric{border:1px solid #d0dfd7;border-top:5px solid var(--accent);border-radius:16px;padding:20px 22px;background:#f5f8f2;min-width:190px;height:100%;box-sizing:border-box}
+    .lab-metric-label{font:700 11px 'Trebuchet MS',sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#426355}
+    .lab-metric-value{font:normal 36px/1.2 Georgia,serif;color:#123b33;margin:10px 0}
+    .lab-metric-detail{font:13px/1.5 'Trebuchet MS',sans-serif;color:#4f695e}
+    .lab-surface{padding:24px;border:1px solid #d0dfd7;border-radius:20px;background:#f5f8f2;color:#163b33;margin:12px 0}
+    .lab-surface h3{font:normal 24px Georgia,serif;margin:0 0 16px;color:#163b33}
+    .lab-dna{display:grid;grid-template-columns:repeat(50,minmax(12px,1fr));gap:3px;min-width:760px;margin:12px 0 22px}
+    .lab-base{display:grid;place-items:center;border-radius:3px;font:700 12px/22px monospace;color:#14372e}
+    .lab-base.changed{outline:2px solid #193e35;outline-offset:-2px}
+    .lab-scroll{overflow-x:auto}
+    .lab-legend{display:flex;flex-wrap:wrap;gap:14px;font:13px 'Trebuchet MS',sans-serif;color:#365b4c;margin:14px 0}
+    .lab-legend b{padding:4px 9px;border-radius:5px;color:#17372f}
+    .lab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .lab-history{display:grid;grid-template-columns:repeat(20,minmax(24px,1fr));gap:5px;min-width:650px}
+    .lab-site{display:grid;place-items:center;font:700 13px/28px monospace;border-radius:5px;color:#153a31}
+    .lab-alignment{display:grid;gap:3px;min-width:max-content}
+    .lab-candidate{padding:22px;border:1px solid #c8dad0;border-top:5px solid var(--accent);border-radius:16px;background:#f5f8f2}
+    .lab-candidate h3{margin:8px 0;font:normal 32px Georgia,serif;color:#133c33}
+    .lab-tag{font:700 11px 'Trebuchet MS',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#346352}
+    .lab-track{height:10px;background:#dbe6dc;border-radius:10px;overflow:hidden;margin:10px 0 16px}
+    .lab-track span{display:block;height:100%;background:var(--accent)}
+    @media(max-width:600px){.lab-hero{padding:25px}.lab-hero h1,.lab-hero p{max-width:100%}.lab-orbit{display:none}.lab-metric{min-width:150px}}
+    @media(prefers-reduced-motion:no-preference){.lab-hero{animation:lab-enter .45s ease-out}@keyframes lab-enter{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}}
+    </style>
 
-    We know the tree because we made it. Now hide that history and try to
-    recover its groupings from the sequences. Will a longer sequence help?
-
-    Allow **5 minutes** for the guided experiment. Compare the tip names in
-    each group, rather than the orientation of the two drawings.
+    <nav class="lab-nav" aria-label="Interactive workshop lessons"><a href="https://molab.marimo.io/github/casl-rz/molecularevolution_and_phylogenetics_workshop/blob/main/01_sequences_as_historical_records.py/wasm?embed=true" target="_blank" rel="noopener noreferrer">01 &nbsp; Sequence records</a><a href="https://molab.marimo.io/github/casl-rz/molecularevolution_and_phylogenetics_workshop/blob/main/02_mutation_substitution_saturation.py/wasm?embed=true" target="_blank" rel="noopener noreferrer">02 &nbsp; Hidden changes</a><a href="https://molab.marimo.io/github/casl-rz/molecularevolution_and_phylogenetics_workshop/blob/main/03_alignment_to_tree.py/wasm?embed=true" target="_blank" rel="noopener noreferrer" aria-current="page">03 &nbsp; Alignment to tree</a><a href="https://molab.marimo.io/github/casl-rz/molecularevolution_and_phylogenetics_workshop/blob/main/04_methods_disagree.py/wasm?embed=true" target="_blank" rel="noopener noreferrer">04 &nbsp; Competing trees</a><a href="https://molab.marimo.io/github/casl-rz/molecularevolution_and_phylogenetics_workshop/blob/main/05_orthology_and_gene_family_case.py/wasm?embed=true" target="_blank" rel="noopener noreferrer">05 &nbsp; Gene families</a></nav>
+    <section class="lab-hero" aria-label="Lesson 3">
+    <div class="lab-eyebrow">Molecular evolution field lab / 03</div>
+    <h1>Watch an alignment<br>become a tree.</h1><p>Compare the known history with the tree estimated from the endpoint data.</p><div class="lab-orbit" aria-hidden="true"></div>
+    </section>
+    <div class="lab-meta">5-minute guided experiment &middot; Synthetic data &middot; No typing needed.
+    Lesson links open the browser-only WebAssembly apps in new tabs.</div>
     """)
     return
 
@@ -21,25 +70,39 @@ def _(mo):
 @app.cell(hide_code=True)
 def _():
     import marimo as mo
+    from html import escape
     import numpy as np
     import matplotlib.pyplot as plt
     from scipy.spatial.distance import squareform
     from scipy.cluster.hierarchy import linkage, dendrogram, fcluster
+
+
+    def metric_card(label, value, detail, accent="#0099a8"):
+        return mo.Html(
+            f'<div class="lab-metric" style="--accent:{accent}">'
+            f'<div class="lab-metric-label">{escape(str(label))}</div>'
+            f'<div class="lab-metric-value">{escape(str(value))}</div>'
+            f'<div class="lab-metric-detail">{escape(str(detail))}</div></div>'
+        )
 
     plt.style.use("seaborn-v0_8-whitegrid")
     plt.rcParams.update(
         {
             "font.size": 11,
             "axes.titleweight": "bold",
-            "axes.edgecolor": "#c8d6c8",
+            "axes.edgecolor": "#d0dfd7",
             "axes.labelcolor": "#33402f",
             "text.color": "#33402f",
             "xtick.color": "#5c6b57",
             "ytick.color": "#5c6b57",
-            "figure.facecolor": "#fbfefb",
+            "figure.facecolor": "#f5f8f2",
+            "axes.facecolor": "#f5f8f2",
+            "grid.color": "#d5e2d9",
+            "grid.alpha": 0.65,
+            "figure.dpi": 120,
         }
     )
-    return dendrogram, linkage, mo, np, plt, squareform
+    return dendrogram, linkage, metric_card, mo, np, plt, squareform
 
 
 @app.cell(hide_code=True)
@@ -99,17 +162,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    prediction_input = mo.ui.text_area(
-        placeholder="Will 500 bases recover more of the known groupings?",
-        label="Your prediction", rows=2,
-    )
     session_step = mo.ui.radio(
         ["Start", "Compare", "Explore"], value="Start",
         label="Session step", inline=True,
     )
     mo.vstack([
-        mo.md("## 1. Predict\nWould more sequence help, and what might it fail to fix?"),
-        prediction_input,
+        mo.md("## 1. Watch\nMore sequence can help, but it cannot repair every assumption."),
         mo.md(
             "## 2. Try it\nCompare changes sequence length from 20 to 500 bases. "
             "Taxa, rates, correction and seed stay fixed. You can still move "
@@ -122,17 +180,27 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo, session_step):
-    n_taxa_slider = mo.ui.slider(4, 10, value=4, step=1, label="Number of taxa")
-    seq_length_slider = mo.ui.slider(20, 1000, value=500 if session_step.value == "Compare" else 20, step=10, label="Sequence length (bp)")
-    mutation_rate_slider = mo.ui.slider(0.001, 0.200, value=0.005, step=0.001, label="Mutation rate (per site, per branch-length unit)")
-    rate_het_slider = mo.ui.slider(0.0, 2.0, value=0.0, step=0.1, label="Rate heterogeneity across sites")
+    n_taxa_slider = mo.ui.slider(4, 10, value=4, step=1, label="Number of taxa",
+        show_value=True,
+    )
+    seq_length_slider = mo.ui.slider(20, 1000, value=500 if session_step.value == "Compare" else 20, step=10, label="Sequence length (bp)",
+        show_value=True,
+    )
+    mutation_rate_slider = mo.ui.slider(0.001, 0.200, value=0.005, step=0.001, label="Mutation rate (per site, per branch-length unit)",
+        show_value=True,
+    )
+    rate_het_slider = mo.ui.slider(0.0, 2.0, value=0.0, step=0.1, label="Rate heterogeneity across sites",
+        show_value=True,
+    )
     distance_correction_dropdown = mo.ui.dropdown(
         options=["Raw p-distance", "Jukes-Cantor-like"], value="Raw p-distance", label="Distance correction"
     )
     rooting_dropdown = mo.ui.dropdown(
         options=["Rooted", "Unrooted"], value="Rooted", label="Root label (display only)"
     )
-    seed_slider = mo.ui.slider(1, 100, value=1, step=1, label="Random seed")
+    seed_slider = mo.ui.slider(1, 100, value=1, step=1, label="Random seed",
+        show_value=True,
+    )
 
     mo.vstack(
         [
@@ -147,7 +215,7 @@ def _(mo, session_step):
                 length` sets how many sites are simulated; `mutation rate`
                 controls how fast substitutions accumulate along each branch;
                 `rate heterogeneity` makes some sites mutate much faster than
-                others when increased above 0 (uniform rates); `distance
+                others when increased above 0 (small residual variation remains at 0); `distance
                 correction` chooses how observed differences are converted
                 into a genetic distance before building the inferred tree;
                 `root label` hides or shows the root annotation, without
@@ -306,53 +374,42 @@ def _(mo):
 
 
 @app.cell(hide_code=True)
-def _(mo, n_sites, sequence_matrix, site_status, taxa_names):
-    def _colorize_char(v, status):
-        styles = {
-            "constant": "color:#78909c;",
-            "uninformative": "background:#fff3cd;color:#8a6500;font-weight:600;border-radius:3px;padding:0 1px;",
-            "informative": "background:#a5d6a7;color:#1b5e20;font-weight:700;border-radius:3px;padding:0 1px;",
-        }
-        return f'<span style="{styles[status]}">{v}</span>'
+def _(metric_card, mo, n_sites, sequence_matrix, site_status, taxa_names):
 
-
-    _preview_len = min(80, n_sites)
-    _rows_html = []
+    _palette = {"A": "#d9ec91", "C": "#79cbd7", "G": "#8dc4a6", "T": "#f5a28e"}
+    _preview = min(80, n_sites)
+    _cells = ['<span class="lab-tag">Site</span>']
+    for _j in range(_preview):
+        _status = site_status[_j]
+        _color = "#8dc4a6" if _status == "informative" else "#f1d589" if _status == "uninformative" else "#e3ebe4"
+        _code = "I" if _status == "informative" else "V" if _status == "uninformative" else "."
+        _cells.append(f'<span class="lab-base" style="background:{_color}" title="Site {_j + 1}: {_status}">{_code}</span>')
     for _i, _name in enumerate(taxa_names):
-        _spans = []
-        for _j in range(_preview_len):
-            _spans.append(_colorize_char(sequence_matrix[_i, _j], site_status[_j]))
-        _rows_html.append(f"{_name:<6}" + "".join(_spans))
-
-    _pre_style = (
-        "font-family: \'Fira Code\', \'Courier New\', monospace; font-size:12px; "
-        "line-height:1.9; background:#f4f9f4; padding:14px; border-radius:10px; "
-        "border:1px solid #c8e6c9; overflow-x:auto; white-space:pre;"
-    )
-
-    mo.vstack(
-        [
-            mo.md("## Multiple Sequence Alignment"),
-            mo.md(
-                f"""<pre style="{_pre_style}">""" + "\n".join(_rows_html) + """</pre>"""
-            ),
-            mo.md(
-                f"""
-                *Showing the first {_preview_len} of {n_sites} sites.*
-
-                - **Plain grey** — *constant*: every taxon has the same base;
-                  no variation to resolve a split under parsimony.
-                - **Amber highlight** — *variable but uninformative*: the base
-                  varies, but only one taxon (or every taxon) has a unique
-                  state, so no grouping of two or more taxa is supported.
-                - **Green highlight (bold)** — *parsimony-informative*: at
-                  least two different bases are each shared by at least two
-                  taxa, so this site provides evidence for grouping some taxa
-                  together.
-                """
-            ),
-        ]
-    )
+        _cells.append(f'<span class="lab-tag" style="align-self:center">{_name}</span>')
+        for _j in range(_preview):
+            _base = sequence_matrix[_i, _j]
+            _frame = " changed" if site_status[_j] == "informative" else ""
+            _cells.append(
+                f'<span class="lab-base{_frame}" style="background:{_palette[_base]}" '
+                f'title="{_name}, site {_j + 1}: {_base}">{_base}</span>'
+            )
+    _n_informative = int((site_status == "informative").sum())
+    mo.vstack([
+        mo.hstack([
+            metric_card("Aligned positions", n_sites, f"Across {len(taxa_names)} taxa", "#0099a8"),
+            metric_card("Shared patterns", _n_informative, "Parsimony-informative sites", "#7a9f36"),
+            metric_card("Constant sites", int((site_status == "constant").sum()), "Other site classes still inform models", "#ee916e"),
+        ], wrap=True, gap=1),
+        mo.Html(
+            '<section class="lab-surface"><h3>The alignment canvas</h3>'
+            '<div class="lab-legend"><b style="background:#8dc4a6">I: parsimony-informative</b>'
+            '<b style="background:#f1d589">V: other variable</b><b style="background:#e3ebe4">.: constant</b></div>'
+            f'<div class="lab-scroll"><div class="lab-alignment" style="grid-template-columns:70px repeat({_preview},18px)">'
+            + "".join(_cells) + '</div></div>'
+            f'<p class="lab-metric-detail">First {_preview} of {n_sites} sites. Letters and base colors identify A/C/G/T; '
+            'the top row classifies columns. A dark frame marks an informative column, not certainty in a grouping.</p></section>'
+        ),
+    ])
     return
 
 
@@ -443,18 +500,24 @@ def _(plt, root_node, rooting_dropdown, taxa_names):
     for _spine in ["top", "right", "left"]:
         _ax.spines[_spine].set_visible(False)
     _fig.tight_layout()
-    _fig
-    return
+    known_tree_figure = _fig
+    return (known_tree_figure,)
 
 
 @app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    *This is the tree actually used to simulate the sequences — the ground
-    truth we are trying to recover. Horizontal distance represents
-    accumulated simulation branch units. Expected substitutions per site
-    also depend on the rate; these are not calibrated calendar times.*
-    """)
+def _(inferred_tree_figure, known_tree_figure, mo):
+    mo.vstack([
+        mo.md("### Compare the groupings\nThe known tree uses simulation branch units; "
+              "the estimate uses genetic distance. Compare named groups, not axis lengths."),
+        mo.ui.tabs({
+            "Side by side": mo.hstack([
+                mo.as_html(known_tree_figure).style({"width": "48%", "min-width": "280px"}),
+                mo.as_html(inferred_tree_figure).style({"width": "48%", "min-width": "280px"}),
+            ], wrap=True, gap=1),
+            "Known history": known_tree_figure,
+            "UPGMA estimate": inferred_tree_figure,
+        }),
+    ])
     return
 
 
@@ -479,8 +542,8 @@ def _(
         _ax.set_title("Inferred tree (UPGMA topology and branch lengths only)", fontsize=12, color="#2e5a27")
     _ax.set_ylabel("Genetic distance")
     _fig.tight_layout()
-    _fig
-    return (linkage_matrix,)
+    inferred_tree_figure = _fig
+    return inferred_tree_figure, linkage_matrix
 
 
 @app.cell(hide_code=True)
@@ -547,9 +610,9 @@ def _(
     mo.vstack(
         [
             mo.md("## Informative-Site Summary"),
-            mo.ui.table(data=_summary_rows, selection=None, pagination=False, show_download=False),
+            mo.ui.table(data=_summary_rows, selection=None, pagination=False, show_download=False, show_search=False),
             mo.md("### Sites Supporting Each True Clade"),
-            mo.ui.table(data=_clade_rows, selection=None, pagination=False, show_download=False),
+            mo.ui.table(data=_clade_rows, selection=None, pagination=False, show_download=False, show_search=False),
         ]
     )
     return
@@ -629,7 +692,7 @@ def _(mo):
         label="For taxa A, B, C and D, which column supports AB | CD under parsimony?",
     )
     show_explanation = mo.ui.checkbox(label="Show the explanation")
-    mo.vstack([mo.md("## 4. Check your reasoning"), check_answer, show_explanation])
+    mo.vstack([mo.md("## 4. Quick check"), check_answer, show_explanation])
     return check_answer, show_explanation
 
 
@@ -648,19 +711,15 @@ def _(check_answer, mo, show_explanation):
 
 @app.cell(hide_code=True)
 def _(mo):
-    reflection_input = mo.ui.text_area(
-        label="One sentence for a colleague", rows=2,
-        placeholder="Why is the estimated tree a hypothesis rather than an observation?",
-    )
     mo.vstack([
         mo.md(
-            "## 5. Take it further\nSelect Explore. Shorten the sequence again "
+            "## 5. Explore further\nSelect Explore. Shorten the sequence again "
             "and inspect the supporting-site counts. Then change the seed. "
             "Does the same length always recover the same groupings?"
         ),
-        mo.md("## 6. Put it into words"), reflection_input,
+        mo.md("## 6. Behind the model"),
         mo.accordion({
-            "One possible explanation": mo.md(
+            "The idea in one sentence": mo.md(
                 "The sequences are the endpoint data. The tree is our estimate "
                 "from those patterns, using a chosen distance and method. More "
                 "signal can help, but it cannot repair every wrong assumption."

@@ -1,3 +1,13 @@
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#     "marimo>=0.24.2",
+#     "matplotlib",
+#     "numpy",
+#     "networkx",
+# ]
+# ///
+
 import marimo
 
 __generated_with = "0.24.2"
@@ -6,14 +16,53 @@ app = marimo.App(width="medium")
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""
-    # 5. Which gene would you investigate?
+    mo.Html(r"""
+    <style>
+    .lab-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;font:600 13px 'Trebuchet MS',sans-serif}
+    .lab-nav a{padding:10px 15px;border:1px solid #c7d7d1;border-radius:24px;color:#16483e;text-decoration:none;background:#f4f8f5}
+    .lab-nav a[aria-current=page]{background:#143b33;color:#e2f7a7;border-color:#143b33}
+    .lab-nav a:hover{background:#dceebd;color:#163b33}
+    .lab-nav a:focus-visible{outline:3px solid #008b9d;outline-offset:3px}
+    .lab-hero{position:relative;overflow:hidden;padding:32px 38px;border-radius:24px;background:#123b33;color:#f6f9ee;margin-bottom:20px}
+    .lab-hero h1{font:normal clamp(30px,4vw,52px)/1.06 Georgia,serif;margin:16px 0;color:#f6f9ee!important;max-width:76%}
+    .lab-hero p{font:17px/1.6 'Trebuchet MS',sans-serif;max-width:78%;margin:0;color:#d4e7dc}
+    .lab-eyebrow{font:700 11px 'Trebuchet MS',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#ddf59d}
+    .lab-orbit{position:absolute;width:160px;height:160px;right:-15px;top:35px;border:1px solid #517567;border-radius:50%}
+    .lab-orbit:before,.lab-orbit:after{content:"";position:absolute;border:1px solid #517567;border-radius:50%;inset:22px}
+    .lab-orbit:after{inset:46px;background:#dff48d}
+    .lab-meta{font:12px 'Trebuchet MS',sans-serif;color:#587267;margin:12px 2px}
+    .lab-metric{border:1px solid #d0dfd7;border-top:5px solid var(--accent);border-radius:16px;padding:20px 22px;background:#f5f8f2;min-width:190px;height:100%;box-sizing:border-box}
+    .lab-metric-label{font:700 11px 'Trebuchet MS',sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#426355}
+    .lab-metric-value{font:normal 36px/1.2 Georgia,serif;color:#123b33;margin:10px 0}
+    .lab-metric-detail{font:13px/1.5 'Trebuchet MS',sans-serif;color:#4f695e}
+    .lab-surface{padding:24px;border:1px solid #d0dfd7;border-radius:20px;background:#f5f8f2;color:#163b33;margin:12px 0}
+    .lab-surface h3{font:normal 24px Georgia,serif;margin:0 0 16px;color:#163b33}
+    .lab-dna{display:grid;grid-template-columns:repeat(50,minmax(12px,1fr));gap:3px;min-width:760px;margin:12px 0 22px}
+    .lab-base{display:grid;place-items:center;border-radius:3px;font:700 12px/22px monospace;color:#14372e}
+    .lab-base.changed{outline:2px solid #193e35;outline-offset:-2px}
+    .lab-scroll{overflow-x:auto}
+    .lab-legend{display:flex;flex-wrap:wrap;gap:14px;font:13px 'Trebuchet MS',sans-serif;color:#365b4c;margin:14px 0}
+    .lab-legend b{padding:4px 9px;border-radius:5px;color:#17372f}
+    .lab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .lab-history{display:grid;grid-template-columns:repeat(20,minmax(24px,1fr));gap:5px;min-width:650px}
+    .lab-site{display:grid;place-items:center;font:700 13px/28px monospace;border-radius:5px;color:#153a31}
+    .lab-alignment{display:grid;gap:3px;min-width:max-content}
+    .lab-candidate{padding:22px;border:1px solid #c8dad0;border-top:5px solid var(--accent);border-radius:16px;background:#f5f8f2}
+    .lab-candidate h3{margin:8px 0;font:normal 32px Georgia,serif;color:#133c33}
+    .lab-tag{font:700 11px 'Trebuchet MS',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#346352}
+    .lab-track{height:10px;background:#dbe6dc;border-radius:10px;overflow:hidden;margin:10px 0 16px}
+    .lab-track span{display:block;height:100%;background:var(--accent)}
+    @media(max-width:600px){.lab-hero{padding:25px}.lab-hero h1,.lab-hero p{max-width:100%}.lab-orbit{display:none}.lab-metric{min-width:150px}}
+    @media(prefers-reduced-motion:no-preference){.lab-hero{animation:lab-enter .45s ease-out}@keyframes lab-enter{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}}
+    </style>
 
-    Gene X affects a trait in Species A. Species B has related copies.
-    Which would you test first, and what evidence is still missing?
-
-    Allow **6 minutes** for the guided experiment, then discuss the decision.
-    The species and functions here are hypothetical.
+    <nav class="lab-nav" aria-label="Interactive workshop lessons"><a href="https://molab.marimo.io/github/casl-rz/molecularevolution_and_phylogenetics_workshop/blob/main/01_sequences_as_historical_records.py/wasm?embed=true" target="_blank" rel="noopener noreferrer">01 &nbsp; Sequence records</a><a href="https://molab.marimo.io/github/casl-rz/molecularevolution_and_phylogenetics_workshop/blob/main/02_mutation_substitution_saturation.py/wasm?embed=true" target="_blank" rel="noopener noreferrer">02 &nbsp; Hidden changes</a><a href="https://molab.marimo.io/github/casl-rz/molecularevolution_and_phylogenetics_workshop/blob/main/03_alignment_to_tree.py/wasm?embed=true" target="_blank" rel="noopener noreferrer">03 &nbsp; Alignment to tree</a><a href="https://molab.marimo.io/github/casl-rz/molecularevolution_and_phylogenetics_workshop/blob/main/04_methods_disagree.py/wasm?embed=true" target="_blank" rel="noopener noreferrer">04 &nbsp; Competing trees</a><a href="https://molab.marimo.io/github/casl-rz/molecularevolution_and_phylogenetics_workshop/blob/main/05_orthology_and_gene_family_case.py/wasm?embed=true" target="_blank" rel="noopener noreferrer" aria-current="page">05 &nbsp; Gene families</a></nav>
+    <section class="lab-hero" aria-label="Lesson 5">
+    <div class="lab-eyebrow">Molecular evolution field lab / 05</div>
+    <h1>Find the copy<br>worth investigating.</h1><p>Trace duplication and speciation before choosing a candidate gene.</p><div class="lab-orbit" aria-hidden="true"></div>
+    </section>
+    <div class="lab-meta">6-minute guided experiment &middot; Synthetic data &middot; No typing needed.
+    Lesson links open the browser-only WebAssembly apps in new tabs.</div>
     """)
     return
 
@@ -21,24 +70,38 @@ def _(mo):
 @app.cell(hide_code=True)
 def _():
     import marimo as mo
+    from html import escape
     import numpy as np
     import networkx as nx
     import matplotlib.pyplot as plt
+
+
+    def metric_card(label, value, detail, accent="#0099a8"):
+        return mo.Html(
+            f'<div class="lab-metric" style="--accent:{accent}">'
+            f'<div class="lab-metric-label">{escape(str(label))}</div>'
+            f'<div class="lab-metric-value">{escape(str(value))}</div>'
+            f'<div class="lab-metric-detail">{escape(str(detail))}</div></div>'
+        )
 
     plt.style.use("seaborn-v0_8-whitegrid")
     plt.rcParams.update(
         {
             "font.size": 11,
             "axes.titleweight": "bold",
-            "axes.edgecolor": "#c8d6c8",
+            "axes.edgecolor": "#d0dfd7",
             "axes.labelcolor": "#33402f",
             "text.color": "#33402f",
             "xtick.color": "#5c6b57",
             "ytick.color": "#5c6b57",
-            "figure.facecolor": "#fbfefb",
+            "figure.facecolor": "#f5f8f2",
+            "axes.facecolor": "#f5f8f2",
+            "grid.color": "#d5e2d9",
+            "grid.alpha": 0.65,
+            "figure.dpi": 120,
         }
     )
-    return mo, np, nx, plt
+    return escape, mo, np, nx, plt
 
 
 @app.cell(hide_code=True)
@@ -56,17 +119,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    prediction_input = mo.ui.text_area(
-        placeholder="After an early duplication, are all cross-species pairs orthologs?",
-        label="Your prediction", rows=2,
-    )
     session_step = mo.ui.radio(
         ["Start", "Compare", "Explore"], value="Start",
         label="Session step", inline=True,
     )
     mo.vstack([
-        mo.md("## 1. Predict\nCould the most similar copy be a different gene lineage?"),
-        prediction_input,
+        mo.md("## 1. Watch\nThe most similar copy can belong to a different gene lineage."),
         mo.md(
             "## 2. Try it\nCompare changes duplication events from 0 to 3. "
             "Keep the target on Species B and inspect the relationship matrix "
@@ -80,16 +138,26 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo, session_step):
-    n_species_slider = mo.ui.slider(3, 10, value=4, step=1, label="Number of species")
-    n_duplications_slider = mo.ui.slider(0, 5, value=3 if session_step.value == "Compare" else 0, step=1, label="Gene duplication events")
-    functional_divergence_slider = mo.ui.slider(0.0, 1.0, value=0.70, step=0.05, label="Functional divergence after duplication")
-    sequence_divergence_slider = mo.ui.slider(0.0, 1.0, value=0.40, step=0.05, label="Sequence divergence rate")
+    n_species_slider = mo.ui.slider(3, 10, value=4, step=1, label="Number of species",
+        show_value=True,
+    )
+    n_duplications_slider = mo.ui.slider(0, 5, value=3 if session_step.value == "Compare" else 0, step=1, label="Gene duplication events",
+        show_value=True,
+    )
+    functional_divergence_slider = mo.ui.slider(0.0, 1.0, value=0.70, step=0.05, label="Functional divergence after duplication",
+        show_value=True,
+    )
+    sequence_divergence_slider = mo.ui.slider(0.0, 1.0, value=0.40, step=0.05, label="Sequence divergence rate",
+        show_value=True,
+    )
     highlight_species_dropdown = mo.ui.dropdown(
         options=["All species"] + [f"Species {chr(65 + i)}" for i in range(10)],
         value="Species B",
         label="Highlight species",
     )
-    seed_slider = mo.ui.slider(1, 100, value=29, step=1, label="Random seed")
+    seed_slider = mo.ui.slider(1, 100, value=29, step=1, label="Random seed",
+        show_value=True,
+    )
 
     mo.vstack(
         [
@@ -573,25 +641,35 @@ def _(
 
 
 @app.cell(hide_code=True)
-def _(candidate_rows, gene_labels, gene_x, mo, species_names):
-    mo.vstack(
-        [
-            mo.md(
-                f"""### Candidate-gene panel
+def _(candidate_rows, escape, gene_labels, gene_x, mo, species_names):
 
-                Reference gene: **{gene_labels[gene_x["id"]]}** in Species {species_names[0]}
-                (this is our "Gene X").
-                """
-            ),
-            mo.ui.table(data=candidate_rows, selection=None, pagination=False, show_download=False),
-            mo.md(
-                "The panel sorts by toy confidence tier, then similarity. "
-                "Similarity is exp(-simulated path distance), not measured "
-                "percent identity. The function-change flags are known only "
-                "because we simulated them; High/Medium/Low are not probabilities."
-            ),
-        ]
+    _cards = []
+    for _rank, _row in enumerate(candidate_rows, 1):
+        _rel = _row["Relationship to Gene X"]
+        _accent = "#0099a8" if _rel == "ortholog" else "#ee916e"
+        _similarity = _row["Sequence similarity"]
+        _cards.append(
+            f'<article class="lab-candidate" style="--accent:{_accent}">'
+            f'<div class="lab-tag">Candidate priority {_rank} / {escape(_rel)}</div>'
+            f'<h3>{escape(_row["Candidate gene"])}</h3>'
+            f'<div class="lab-metric-detail">Toy similarity <strong>{_similarity:.3f}</strong></div>'
+            f'<div class="lab-track"><span style="width:{100 * _similarity:.1f}%"></span></div>'
+            f'<div class="lab-metric-detail">Heuristic tier: <strong>{_row["Confidence"]}</strong><br>'
+            f'Function-change flag: {_row["Functionally diverged?"]}</div></article>'
+        )
+    _content = "".join(_cards) if _cards else (
+        '<p>No additional copies in the selected species. Choose another species or All species.</p>'
     )
+    mo.vstack([
+        mo.Html(
+            '<section class="lab-surface"><h3>Candidate-gene shortlist</h3>'
+            f'<p class="lab-metric-detail">Reference: {escape(gene_labels[gene_x["id"]])} in Species {species_names[0]}.</p>'
+            '<div class="lab-grid">' + _content + '</div></section>'
+        ),
+        mo.accordion({"Exact values": mo.ui.table(data=candidate_rows, selection=None, pagination=False, show_download=False, show_search=False)}),
+        mo.md("Priorities use toy tiers, then similarity. **Similarity is exp(-simulated path distance), not percent identity.** "
+              "Event labels and function flags are simulator truth; the tier is not a calibrated probability."),
+    ])
     return
 
 
@@ -681,7 +759,7 @@ def _(mo):
         label="A duplication occurs before a species split. Which statement fits?",
     )
     show_explanation = mo.ui.checkbox(label="Show the explanation")
-    mo.vstack([mo.md("## 4. Check your reasoning"), check_answer, show_explanation])
+    mo.vstack([mo.md("## 4. Quick check"), check_answer, show_explanation])
     return check_answer, show_explanation
 
 
@@ -702,7 +780,7 @@ def _(check_answer, mo, show_explanation):
 def _(mo):
     mo.md(
         r"""
-        ## 5. Take it further
+        ## 5. Explore further
 
         Select Explore; these challenges are optional.
 
@@ -762,14 +840,10 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    reflection_input = mo.ui.text_area(
-        label="One sentence for a colleague", rows=2,
-        placeholder="I would test ___ first because ___; I still need evidence for ___.",
-    )
     mo.vstack([
-        mo.md("## 6. Put it into words"), reflection_input,
+        mo.md("## 6. Behind the model"),
         mo.accordion({
-            "One possible explanation": mo.md(
+            "The idea in one sentence": mo.md(
                 "I would prioritize a supported ortholog, while checking "
                 "additional copies and signs of divergence. I still need "
                 "expression, domain, genomic-context and functional evidence "

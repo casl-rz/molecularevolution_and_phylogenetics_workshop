@@ -1,3 +1,12 @@
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#     "marimo>=0.24.2",
+#     "matplotlib",
+#     "numpy",
+# ]
+# ///
+
 import marimo
 
 __generated_with = "0.24.2"
@@ -6,14 +15,53 @@ app = marimo.App(width="medium")
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""
-    # 2. Mutation, substitution and saturation
+    mo.Html(r"""
+    <style>
+    .lab-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;font:600 13px 'Trebuchet MS',sans-serif}
+    .lab-nav a{padding:10px 15px;border:1px solid #c7d7d1;border-radius:24px;color:#16483e;text-decoration:none;background:#f4f8f5}
+    .lab-nav a[aria-current=page]{background:#143b33;color:#e2f7a7;border-color:#143b33}
+    .lab-nav a:hover{background:#dceebd;color:#163b33}
+    .lab-nav a:focus-visible{outline:3px solid #008b9d;outline-offset:3px}
+    .lab-hero{position:relative;overflow:hidden;padding:32px 38px;border-radius:24px;background:#123b33;color:#f6f9ee;margin-bottom:20px}
+    .lab-hero h1{font:normal clamp(30px,4vw,52px)/1.06 Georgia,serif;margin:16px 0;color:#f6f9ee!important;max-width:76%}
+    .lab-hero p{font:17px/1.6 'Trebuchet MS',sans-serif;max-width:78%;margin:0;color:#d4e7dc}
+    .lab-eyebrow{font:700 11px 'Trebuchet MS',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#ddf59d}
+    .lab-orbit{position:absolute;width:160px;height:160px;right:-15px;top:35px;border:1px solid #517567;border-radius:50%}
+    .lab-orbit:before,.lab-orbit:after{content:"";position:absolute;border:1px solid #517567;border-radius:50%;inset:22px}
+    .lab-orbit:after{inset:46px;background:#dff48d}
+    .lab-meta{font:12px 'Trebuchet MS',sans-serif;color:#587267;margin:12px 2px}
+    .lab-metric{border:1px solid #d0dfd7;border-top:5px solid var(--accent);border-radius:16px;padding:20px 22px;background:#f5f8f2;min-width:190px;height:100%;box-sizing:border-box}
+    .lab-metric-label{font:700 11px 'Trebuchet MS',sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#426355}
+    .lab-metric-value{font:normal 36px/1.2 Georgia,serif;color:#123b33;margin:10px 0}
+    .lab-metric-detail{font:13px/1.5 'Trebuchet MS',sans-serif;color:#4f695e}
+    .lab-surface{padding:24px;border:1px solid #d0dfd7;border-radius:20px;background:#f5f8f2;color:#163b33;margin:12px 0}
+    .lab-surface h3{font:normal 24px Georgia,serif;margin:0 0 16px;color:#163b33}
+    .lab-dna{display:grid;grid-template-columns:repeat(50,minmax(12px,1fr));gap:3px;min-width:760px;margin:12px 0 22px}
+    .lab-base{display:grid;place-items:center;border-radius:3px;font:700 12px/22px monospace;color:#14372e}
+    .lab-base.changed{outline:2px solid #193e35;outline-offset:-2px}
+    .lab-scroll{overflow-x:auto}
+    .lab-legend{display:flex;flex-wrap:wrap;gap:14px;font:13px 'Trebuchet MS',sans-serif;color:#365b4c;margin:14px 0}
+    .lab-legend b{padding:4px 9px;border-radius:5px;color:#17372f}
+    .lab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .lab-history{display:grid;grid-template-columns:repeat(20,minmax(24px,1fr));gap:5px;min-width:650px}
+    .lab-site{display:grid;place-items:center;font:700 13px/28px monospace;border-radius:5px;color:#153a31}
+    .lab-alignment{display:grid;gap:3px;min-width:max-content}
+    .lab-candidate{padding:22px;border:1px solid #c8dad0;border-top:5px solid var(--accent);border-radius:16px;background:#f5f8f2}
+    .lab-candidate h3{margin:8px 0;font:normal 32px Georgia,serif;color:#133c33}
+    .lab-tag{font:700 11px 'Trebuchet MS',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#346352}
+    .lab-track{height:10px;background:#dbe6dc;border-radius:10px;overflow:hidden;margin:10px 0 16px}
+    .lab-track span{display:block;height:100%;background:var(--accent)}
+    @media(max-width:600px){.lab-hero{padding:25px}.lab-hero h1,.lab-hero p{max-width:100%}.lab-orbit{display:none}.lab-metric{min-width:150px}}
+    @media(prefers-reduced-motion:no-preference){.lab-hero{animation:lab-enter .45s ease-out}@keyframes lab-enter{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}}
+    </style>
 
-    A site can change and then change again. Sometimes it even returns to
-    its starting base. The endpoint comparison misses those earlier events.
-
-    Allow **4 minutes** for the guided experiment. We will compare the event
-    record with what a sequence comparison can see.
+    <nav class="lab-nav" aria-label="Interactive workshop lessons"><a href="https://molab.marimo.io/github/casl-rz/molecularevolution_and_phylogenetics_workshop/blob/main/01_sequences_as_historical_records.py/wasm?embed=true" target="_blank" rel="noopener noreferrer">01 &nbsp; Sequence records</a><a href="https://molab.marimo.io/github/casl-rz/molecularevolution_and_phylogenetics_workshop/blob/main/02_mutation_substitution_saturation.py/wasm?embed=true" target="_blank" rel="noopener noreferrer" aria-current="page">02 &nbsp; Hidden changes</a><a href="https://molab.marimo.io/github/casl-rz/molecularevolution_and_phylogenetics_workshop/blob/main/03_alignment_to_tree.py/wasm?embed=true" target="_blank" rel="noopener noreferrer">03 &nbsp; Alignment to tree</a><a href="https://molab.marimo.io/github/casl-rz/molecularevolution_and_phylogenetics_workshop/blob/main/04_methods_disagree.py/wasm?embed=true" target="_blank" rel="noopener noreferrer">04 &nbsp; Competing trees</a><a href="https://molab.marimo.io/github/casl-rz/molecularevolution_and_phylogenetics_workshop/blob/main/05_orthology_and_gene_family_case.py/wasm?embed=true" target="_blank" rel="noopener noreferrer">05 &nbsp; Gene families</a></nav>
+    <section class="lab-hero" aria-label="Lesson 2">
+    <div class="lab-eyebrow">Molecular evolution field lab / 02</div>
+    <h1>The endpoint is<br>not the whole story.</h1><p>Count every event, then compare what remains visible in the final bases.</p><div class="lab-orbit" aria-hidden="true"></div>
+    </section>
+    <div class="lab-meta">4-minute guided experiment &middot; Synthetic data &middot; No typing needed.
+    Lesson links open the browser-only WebAssembly apps in new tabs.</div>
     """)
     return
 
@@ -21,23 +69,37 @@ def _(mo):
 @app.cell(hide_code=True)
 def _():
     import marimo as mo
+    from html import escape
     import numpy as np
     import matplotlib.pyplot as plt
+
+
+    def metric_card(label, value, detail, accent="#0099a8"):
+        return mo.Html(
+            f'<div class="lab-metric" style="--accent:{accent}">'
+            f'<div class="lab-metric-label">{escape(str(label))}</div>'
+            f'<div class="lab-metric-value">{escape(str(value))}</div>'
+            f'<div class="lab-metric-detail">{escape(str(detail))}</div></div>'
+        )
 
     plt.style.use("seaborn-v0_8-whitegrid")
     plt.rcParams.update(
         {
             "font.size": 11,
             "axes.titleweight": "bold",
-            "axes.edgecolor": "#c8d6c8",
+            "axes.edgecolor": "#d0dfd7",
             "axes.labelcolor": "#33402f",
             "text.color": "#33402f",
             "xtick.color": "#5c6b57",
             "ytick.color": "#5c6b57",
-            "figure.facecolor": "#fbfefb",
+            "figure.facecolor": "#f5f8f2",
+            "axes.facecolor": "#f5f8f2",
+            "grid.color": "#d5e2d9",
+            "grid.alpha": 0.65,
+            "figure.dpi": 120,
         }
     )
-    return mo, np, plt
+    return metric_card, mo, np, plt
 
 
 @app.cell(hide_code=True)
@@ -72,17 +134,12 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    prediction_input = mo.ui.text_area(
-        label="Your prediction", rows=2,
-        placeholder="Can the final bases reveal every earlier change?",
-    )
     session_step = mo.ui.radio(
         ["Start", "Compare", "Explore"], value="Start",
         label="Session step", inline=True,
     )
     mo.vstack([
-        mo.md("## 1. Predict\nWhat happens to the gap between events and mismatches on a longer branch?"),
-        prediction_input,
+        mo.md("## 1. Watch\nLonger branches can hide more history behind the same endpoints."),
         mo.md(
             "## 2. Try it\nCompare changes branch length from 5 to 200 generations. "
             "Rate, bias, conserved fraction and seed stay fixed. You can still "
@@ -96,19 +153,24 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo, session_step):
     mutation_rate_slider = mo.ui.slider(
-        0.001, 0.300, value=0.020, step=0.001, label="Mutation rate (per site, per generation)"
+        0.001, 0.300, value=0.020, step=0.001, label="Mutation rate (per site, per generation)",
+        show_value=True,
     )
     branch_length_slider = mo.ui.slider(
-        1, 500, value=200 if session_step.value == "Compare" else 5, step=1, label="Branch length (generations)"
+        1, 500, value=200 if session_step.value == "Compare" else 5, step=1, label="Branch length (generations)",
+        show_value=True,
     )
     ts_tv_slider = mo.ui.slider(
-        0.5, 10.0, value=2.0, step=0.1, label="Transition/transversion bias"
+        0.5, 10.0, value=2.0, step=0.1, label="Transition/transversion bias",
+        show_value=True,
     )
     conserved_fraction_slider = mo.ui.slider(
-        0.0, 0.95, value=0.30, step=0.05, label="Conserved site fraction"
+        0.0, 0.95, value=0.30, step=0.05, label="Conserved site fraction",
+        show_value=True,
     )
     seed_slider = mo.ui.slider(
-        1, 100, value=7, step=1, label="Random seed"
+        1, 100, value=7, step=1, label="Random seed",
+        show_value=True,
     )
 
     mo.vstack(
@@ -218,23 +280,25 @@ def _(
 
 
 @app.cell(hide_code=True)
-def _(mo, n_multi_hit_sites, n_observed_differences, n_true_substitutions):
+def _(
+    hit_count,
+    metric_card,
+    mo,
+    n_multi_hit_sites,
+    n_observed_differences,
+    n_true_substitutions,
+    observed_diff_mask,
+):
+
+    _hidden = int(((hit_count >= 2) & ~observed_diff_mask).sum())
     mo.vstack([
-        mo.md(
-            "## 3. Read the result\nCompare the event total with the number of "
-            "differing sites. Then find a repeatedly hit site with no visible "
-            "difference in the two strips below."
-        ),
+        mo.md("## 3. Read the result\nCompare the event record with the endpoint mismatches. The coral H tiles below expose history that the final comparison misses."),
         mo.hstack([
-            mo.stat(value=str(n_true_substitutions), label="Simulated events", bordered=True),
-            mo.stat(value=str(n_observed_differences), label="Visible mismatches", bordered=True),
-            mo.stat(value=str(n_multi_hit_sites), label="Sites hit more than once", bordered=True),
-        ]),
-        mo.md(
-            "**Simulated:** every event and the ancestral bases. **Observed:** "
-            "endpoint mismatches. **Inferred:** how incomplete that comparison "
-            "is. **Assumed:** independent sites and two rate classes."
-        ),
+            metric_card("Simulated events", n_true_substitutions, "Every change is recorded", "#ee916e"),
+            metric_card("Visible mismatches", n_observed_differences, "Only the final states are compared", "#0099a8"),
+            metric_card("Hidden repeat-hit sites", _hidden, f"Within {n_multi_hit_sites} repeatedly hit sites", "#7a9f36"),
+        ], wrap=True, gap=1),
+        mo.md("**Simulated:** every event and ancestral base. **Observed:** endpoint mismatches. **Inferred:** how incomplete that comparison is. **Assumed:** independent sites and two rate classes."),
     ])
     return
 
@@ -278,24 +342,27 @@ def _(mo):
 
 
 @app.cell(hide_code=True)
-def _(hit_count, np, observed_diff_mask, plt):
-    _fig, (_ax1, _ax2) = plt.subplots(
-        2, 1, figsize=(9, 2.6), sharex=True, gridspec_kw={"height_ratios": [3, 1.2]}
-    )
-    _im = _ax1.imshow(
-        hit_count[np.newaxis, :], aspect="auto", cmap="YlOrRd",
-        vmin=0, vmax=max(3, int(hit_count.max())),
-    )
-    _ax1.set_yticks([])
-    _ax1.set_title("True substitution events per site (darker = struck more times)", fontsize=11)
-    _fig.colorbar(_im, ax=_ax1, orientation="vertical", fraction=0.03, pad=0.02)
+def _(hit_count, mo, observed_diff_mask):
 
-    _ax2.imshow(observed_diff_mask[np.newaxis, :].astype(int), aspect="auto", cmap="Greens", vmin=0, vmax=1)
-    _ax2.set_yticks([])
-    _ax2.set_xlabel("Site position along the sequence")
-    _ax2.set_title("Observed difference from ancestor (green = yes)", fontsize=10)
-    _fig.tight_layout()
-    _fig
+    _tiles = []
+    for _position, (_hits, _different) in enumerate(zip(hit_count, observed_diff_mask)):
+        _hidden = _hits >= 2 and not _different
+        _color = "#f5a28e" if _hidden else "#d9ec91" if _different else "#dce6de"
+        _label = f"{_hits}H" if _hidden else str(_hits)
+        _tiles.append(
+            f'<span class="lab-site" style="background:{_color}" '
+            f'title="Site {_position + 1}: {_hits} events; endpoint '
+            f'{"different" if _different else "matching"}">{_label}</span>'
+        )
+    mo.Html(
+        '<section class="lab-surface"><h3>The hidden-history atlas</h3>'
+        '<div class="lab-legend"><b style="background:#f5a28e">H: hidden repeat changes</b>'
+        '<b style="background:#d9ec91">Visible mismatch</b><b style="background:#dce6de">Matching endpoints</b></div>'
+        '<div class="lab-scroll"><div class="lab-history">' + "".join(_tiles) + '</div></div>'
+        '<p class="lab-metric-detail">Every tile is one simulated site; its number counts events. '
+        'Coral H tiles changed repeatedly but end on the ancestral base. Read left to right, '
+        'wrapping every 20 sites. Hover for the position.</p></section>'
+    )
     return
 
 
@@ -304,10 +371,8 @@ def _(mo, n_multi_hit_sites, n_sites):
     mo.md(
         f"""
         *Out of {n_sites} sites, **{n_multi_hit_sites}** were struck by two or
-        more substitutions. Compare the top row (true history) to the bottom
-        row (what a sequence comparison would actually show) — darker patches
-        in the top row that don't line up with a green patch below are hidden
-        history.*
+        more substitutions. The atlas labels hidden repeat-hit sites with H. Their event counts
+        are greater than zero, even though the endpoints match.*
         """
     )
     return
@@ -388,7 +453,7 @@ def _(
     mo.vstack(
         [
             mo.md("### Counts for this run"),
-            mo.ui.table(data=_summary_rows, selection=None, pagination=False, show_download=False),
+            mo.ui.table(data=_summary_rows, selection=None, pagination=False, show_download=False, show_search=False),
         ]
     )
     return
@@ -447,7 +512,7 @@ def _(mo):
         label="A site starts as A and ends as A. What does that tell us?",
     )
     show_explanation = mo.ui.checkbox(label="Show the explanation")
-    mo.vstack([mo.md("## 4. Check your reasoning"), check_answer, show_explanation])
+    mo.vstack([mo.md("## 4. Quick check"), check_answer, show_explanation])
     return check_answer, show_explanation
 
 
@@ -465,20 +530,16 @@ def _(check_answer, mo, show_explanation):
 
 @app.cell(hide_code=True)
 def _(mo):
-    reflection_input = mo.ui.text_area(
-        label="One sentence for a colleague", rows=2,
-        placeholder="Why can a sequence comparison underestimate historical change?",
-    )
     mo.vstack([
         mo.md(
-            "## 5. Take it further\nSelect Explore and lengthen the branch to "
+            "## 5. Explore further\nSelect Explore and lengthen the branch to "
             "500 generations. Leave the rate fixed. How far apart do the two "
             "counts get? Then change the conserved-site fraction and compare "
             "how quickly the mismatch curve rises."
         ),
-        mo.md("## 6. Put it into words"), reflection_input,
+        mo.md("## 6. Behind the model"),
         mo.accordion({
-            "One possible explanation": mo.md(
+            "The idea in one sentence": mo.md(
                 "A mismatch records the final state, not the number of times "
                 "the site changed. Repeated changes can overwrite one another."
             ),
