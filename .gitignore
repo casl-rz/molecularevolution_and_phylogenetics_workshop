@@ -1,0 +1,13 @@
+/course_material/
+
+# Generated notebook state and Python caches
+__marimo__/
+__pycache__/
+*.py[cod]
+
+# Local environments and credentials
+.venv/
+venv/
+.env
+.env.*
+!.env.example
